@@ -15,28 +15,27 @@ public class Produto {
 
     private Integer id;
     private String nome;
-    private String produto;
+    private Double preco;
 
-    public Produto(Integer id, String nome, String produto) {
+    public Produto(){}
+    public Produto(Integer id, String nome, Double preco) {
         this.id = id;
         this.nome = nome;
-        this.produto = produto;
+        this.preco = preco;
     }
 
-    public Produto() {
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Produto produto1 = (Produto) o;
-        return Objects.equals(id, produto1.id) && Objects.equals(nome, produto1.nome) && Objects.equals(produto, produto1.produto);
+        Produto produto = (Produto) o;
+        return Objects.equals(id, produto.id) && Objects.equals(nome, produto.nome) && Objects.equals(preco, produto.preco);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, produto);
+        return Objects.hash(id, nome, preco);
     }
 
     public Integer getId() {
@@ -55,11 +54,11 @@ public class Produto {
         this.nome = nome;
     }
 
-    public String getProduto() {
-        return produto;
+    public Double getPreco() {
+        return preco;
     }
 
-    public void setProduto(String produto) {
-        this.produto = produto;
+    public void setPreco(Double preco) {
+        this.preco = preco;
     }
 }

@@ -1,11 +1,12 @@
 package com.backendjpa.back.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Objects;
+import java.util.Set;
 
+@Entity
+@Table(name="tb_pedido")
 public class Pedido {
 
     @Id
@@ -13,10 +14,28 @@ public class Pedido {
     private Integer id;
     private String endereco;
 
+
+    @ManyToMany
+    @JoinTable(name="tb_pedido_produto", joinColumns = @JoinColumn(name="id_pedido"),
+            inverseJoinColumns = @JoinColumn(name="id_produto"))
+    private Set<Produto> produtos;
     public Pedido(){}
     public Pedido(Integer id, String endereco) {
         this.id = id;
         this.endereco = endereco;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pedido pedido = (Pedido) o;
+        return Objects.equals(id, pedido.id) && Objects.equals(endereco, pedido.endereco) && Objects.equals(produtos, pedido.produtos);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, endereco, produtos);
     }
 
     public Integer getId() {
@@ -35,16 +54,4 @@ public class Pedido {
         this.endereco = endereco;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Pedido pedido = (Pedido) o;
-        return Objects.equals(id, pedido.id) && Objects.equals(endereco, pedido.endereco);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, endereco);
-    }
 }
