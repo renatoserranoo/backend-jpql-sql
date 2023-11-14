@@ -4,11 +4,13 @@ import com.backendjpa.back.DTO.ProdutoDto;
 import com.backendjpa.back.entity.Produto;
 import com.backendjpa.back.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 public class ProdutoService {
     @Autowired
     private ProdutoRepository repository;
@@ -20,7 +22,7 @@ public class ProdutoService {
 
     public List<ProdutoDto> findAll(){
         List<Produto> list = repository.findAll();
-        return list.stream().map(x -> new ProdutoDto(x)).collect(Collectors.toList());
+        return list.stream().map(ProdutoDto::new).collect(Collectors.toList());
 
     }
 

@@ -1,7 +1,6 @@
 package com.backendjpa.back.controller;
 
 import com.backendjpa.back.DTO.ProdutoDto;
-import com.backendjpa.back.entity.Produto;
 import com.backendjpa.back.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,13 +13,15 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/produtos")
 public class ProdutoController {
+
     @Autowired
     private ProdutoService service;
 
     @PostMapping
     public ResponseEntity<String> insert(@RequestBody ProdutoDto produto) {
         ProdutoDto prod = service.create(produto);
-        return prod != null ? new ResponseEntity<>("Produto criado com sucesso", HttpStatus.CREATED) : new ResponseEntity<>("Erro ao criar produto", HttpStatus.BAD_REQUEST);
+        return prod != null ? new ResponseEntity<>("Produto criado com sucesso", HttpStatus.CREATED) :
+                new ResponseEntity<>("Erro ao criar produto", HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping
